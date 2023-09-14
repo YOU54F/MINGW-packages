@@ -10,20 +10,20 @@
          [arm*-linux*], [
              coroutine_type=arm32
          ],
---- a/vm_dump.c	2022-04-12 13:11:15.000000000 +0200
-+++ b/vm_dump.c	2022-09-17 20:52:16.559409600 +0200
-@@ -701,6 +701,14 @@
- 		    frame.AddrFrame.Offset = context.Rbp;
- 		    frame.AddrStack.Mode = AddrModeFlat;
- 		    frame.AddrStack.Offset = context.Rsp;
+--- a/vm_dump.c
++++ b/vm_dump.c
+@@ -727,6 +727,14 @@
+                     frame.AddrFrame.Offset = context.Rbp;
+                     frame.AddrStack.Mode = AddrModeFlat;
+                     frame.AddrStack.Offset = context.Rsp;
 +#elif defined(__aarch64__)
-+		    mac = IMAGE_FILE_MACHINE_ARM64;
-+		    frame.AddrPC.Mode = AddrModeFlat;
-+		    frame.AddrPC.Offset = context.Pc;
-+		    frame.AddrFrame.Mode = AddrModeFlat;
-+		    frame.AddrFrame.Offset = context.Fp;
-+		    frame.AddrStack.Mode = AddrModeFlat;
-+		    frame.AddrStack.Offset = context.Sp;
++		            mac = IMAGE_FILE_MACHINE_ARM64;
++		            frame.AddrPC.Mode = AddrModeFlat;
++		            frame.AddrPC.Offset = context.Pc;
++		            frame.AddrFrame.Mode = AddrModeFlat;
++		            frame.AddrFrame.Offset = context.Fp;
++		            frame.AddrStack.Mode = AddrModeFlat;
++		            frame.AddrStack.Offset = context.Sp;
  #else	/* i386 */
- 		    mac = IMAGE_FILE_MACHINE_I386;
- 		    frame.AddrPC.Mode = AddrModeFlat;
+                     mac = IMAGE_FILE_MACHINE_I386;
+                     frame.AddrPC.Mode = AddrModeFlat;

@@ -1,0 +1,22 @@
+--- a/win32/win32.c
++++ b/win32/win32.c
+@@ -2622,15 +2622,15 @@
+             }
+         }
+     }
+-    fprintf(stderr, "unexpected " UCRTBASE "\n");
+-    _exit(1);
+ 
+     found:
+     p += sizeof(PIOINFO_MARK) - 1;
+ #ifdef _WIN64
+     rel = *(int32_t*)(p);
+     rip = p + sizeof(int32_t);
++    HANDLE h = GetModuleHandle("ucrtbase.dll");
+-    __pioinfo = (ioinfo**)(rip + rel);
++    __pioinfo = (ioinfo**)((char *)h + 0x1F7E80);
+ #else
++    HANDLE h = GetModuleHandle("ucrtbase.dll");
+-    __pioinfo = *(ioinfo***)(p);
++    __pioinfo = (ioinfo**)((char *)h + 0x1F7E80);
+ #endif
